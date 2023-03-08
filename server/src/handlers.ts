@@ -28,8 +28,7 @@ export const selectAllUsers = async (_req: Request, res: Response) => {
 
 export const selectOneUser = async (req: Request, res: Response) => {
   let conn, result
-  const { params } = req
-  const { id } = params
+  const { id } = req.params
   try {
     conn = await pool.getConnection()
     result = await conn.query('select * from users where UserID=?', [id])
