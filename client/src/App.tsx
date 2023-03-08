@@ -1,26 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import './App.css'
 
 function App() {
+  const [UserID, setUserID] = React.useState<number>(0)
+  const [User, setUser] = React.useState()
+  const getUser = () => {
+    fetch('http://localhost:8001/Users/' + UserID)
+      .then(result => result.json())
+      .then(body => setUser(body))
+    console.log(User)
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="Chatroom">
+      <h1>Chatroom</h1>
+      <input value={UserID} onChange={e => setUserID(parseInt(e.target.value))} />
+      <button onClick={getUser}>Find User</button>
+      <p>{JSON.stringify(User, null, 2)}</p>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
